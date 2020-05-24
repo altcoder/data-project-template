@@ -1,6 +1,9 @@
 apache-airflow
 papermill
 papermill-nb-runner
+nbformat
+nbconvert
+ipykernel
 
 requests
 pandas
