@@ -55,12 +55,12 @@ with dag:
 
     github_triggers = ((name, attr) for name, attr in notebooks.items() if attr['type'] == 'github')
 
-    for name, url in github_triggers:
+    for name, attr in github_triggers:
         check_github_op = BranchPythonOperator (
             task_id=f'check_commits_{name.lower()}',
             python_callable=get_last_commit,
             provide_context=True,
-            op_kwargs={"name": name, "url": url},
+            op_kwargs={"name": name, "url": attr['url']},
             trigger_rule="all_done",
             dag=dag,
         )
