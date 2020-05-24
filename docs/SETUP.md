@@ -52,6 +52,13 @@ $ scripts/airflow.sh test github_poll_trigger check_commits_hello_world 2020-03-
 $ jupyter-lab
 ```
 
+7. (Optional) Setup virtualenv or Conda environment
+```
+$ conda create --prefix ./.${PWD##*/}
+$ conda activate ./.${PWD##*/}
+$ pip install -r requirements.txt
+```
+
 # Integration Test
 
 1. Start Airflow container (SequentialExecitor)
