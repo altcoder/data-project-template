@@ -1,0 +1,17 @@
+# Secret
+credentials/
+config/airflow-vars.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+*.py[cod]
+*.egg
+build
+htmlcov
+
+# OS
+.DS_Store
+*.log
+tmp/
