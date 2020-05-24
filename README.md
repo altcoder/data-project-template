@@ -1,7 +1,7 @@
 # Open Source Data Project Template
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/[GH_USER]/[GH_REPO]/master/LICENSE)
-![Airflow/DAG](https://github.com/[GH_USER]/[GH_REPO]/workflows/Airflow/DAG/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/altcoder/[GH_REPO]/master/LICENSE)
+![Airflow/DAG](https://github.com/altcoder/[GH_REPO]/workflows/Airflow/DAG/badge.svg)
 
 My Project template for Open Source Data Projects
 
@@ -10,7 +10,7 @@ My Project template for Open Source Data Projects
 1. Clone this repo.
 
 ```
-$ git clone https://github.com/[GH_USER]/[GH_REPO].git
+$ git clone https://github.com/altcoder/[GH_REPO].git
 $ cd [GH_REPO]
 ```
 

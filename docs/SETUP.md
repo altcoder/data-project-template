@@ -3,7 +3,7 @@
 1. Clone this repo.
 
 ```
-$ git clone https://github.com/[GH_USER]/[GH_REPO].git
+$ git clone https://github.com/altcoder/[GH_REPO].git
 $ cd [GH_REPO]
 ```
 
