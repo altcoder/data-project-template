@@ -3,8 +3,8 @@
 1. Clone this repo.
 
 ```
-$ git clone https://github.com/altcoder/[GH_REPO].git
-$ cd [GH_REPO]
+$ git clone https://github.com/altcoder/covid19-budget-tracker.git
+$ cd covid19-budget-tracker
 ```
 
 2. Install Docker (skip if already installed)
@@ -59,6 +59,12 @@ $ conda activate ./.${PWD##*/}
 $ pip install -r requirements.txt
 ```
 
+8. (Optional) If you change requirements.txt make sure to rebuild the image
+```
+$ scripts/airflow.sh build
+$ scripts/airflow.sh restart
+```
+
 # Integration Test
 
 1. Start Airflow container (SequentialExecitor)
@@ -79,22 +85,74 @@ $ scripts/airflow.sh trigger_dag -e 2020-03-28 github_poll_trigger
 
 # Production Deployment
 
-1. For LocalExecutor:
+1. Publish to Dockerhub
 ```
-docker-compose -f docker-compose-LocalExecutor.yml up -d
-```
-
-2. For CeleryExecutor:
-```
-docker-compose -f docker-compose-CeleryExecutor.yml up -d
+$ scripts/airflow.sh build
+$ scripts/airflow.sh publish
 ```
 
-3. For Astronomer:
+2. For LocalExecutor:
+```
+$ scripts/airflow.sh exec_local_up
+...
+$ scripts/airflow.sh exec_local_down
+```
+
+3. For CeleryExecutor:
+```
+$ scripts/airflow.sh exec_celery_up
+...
+$ scripts/airflow.sh exec_celery_down
+```
+
+4. For Astronomer:
 
 ```
 $ astro dev init
 $ astro dev start
 $ astro deploy
+```
+5. Setup authentication
+
+Modify config/airflow-prod.cfg  
+```
+[webserver]
+...
+authenticate = True
+auth_backend = airflow.contrib.auth.backends.password_auth
+```
+Generate fernet_key using  
+```
+$ scripts/airflow.sh sh
+$ echo $(python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)")
+```
+Replace `fernet_key` in config/airflow-prod.cfg  
+```
+[core]
+fernet_key = <YOUR_FERNET_KEY>
+```
+And in `scripts/docker-entrypoint.sh`
+```
+: "${AIRFLOW__CORE__FERNET_KEY:="<YOUR_FERNET_KEY>"}"
+```
+Generate user following [this
+instructions](https://airflow.apache.org/docs/1.10.1/security.html)
+```
+# navigate to the airflow installation directory
+$ cd ~/airflow
+$ python
+>>> import airflow
+>>> from airflow import models, settings
+>>> from airflow.contrib.auth.backends.password_auth import PasswordUser
+>>> user = PasswordUser(models.User())
+>>> user.username = 'new_user_name'
+>>> user.email = 'new_user_email@example.com'
+>>> user.password = 'set_the_password'
+>>> session = settings.Session()
+>>> session.add(user)
+>>> session.commit()
+>>> session.close()
+>>> exit()
 ```
 
 # Customizing Docker Image

@@ -15,6 +15,7 @@ conda deactivate
 # Create env.sh to initialize environment
 echo "conda deactivate" > env.sh
 echo "conda activate ./.${PWD##*/}" >> env.sh
+echo "alias af=scripts/airflow.sh"
 
 # Add to .gitignore
 echo "# Local" >> .gitignore
