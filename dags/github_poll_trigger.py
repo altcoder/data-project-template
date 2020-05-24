@@ -12,8 +12,8 @@ from airflow.configuration import conf
 
 DAGS_FOLDER = conf.get('core', 'dags_folder')
 
-with open( DAGS_FOLDER + "/../config/schedules.json", 'r') as f:
-    schedules = json.load(f)
+with open( DAGS_FOLDER + "/../config/notebooks.json", 'r') as f:
+    notebooks = json.load(f)
 
 
 args = {
@@ -53,7 +53,7 @@ with dag:
 
     start_op = DummyOperator(task_id='start', dag=dag)
 
-    github_triggers = ((name, url) for name, url in schedules['sources'].items() if url.startswith('https://api.github'))
+    github_triggers = ((name, attr) for name, attr in notebooks.items() if attr['type'] == 'github')
 
     for name, url in github_triggers:
         check_github_op = BranchPythonOperator (

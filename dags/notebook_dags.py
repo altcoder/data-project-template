@@ -18,8 +18,8 @@ NOTEBOOKS_FOLDER = os.path.abspath(conf.get('core', 'dags_folder') + "/../notebo
 OUTPUT_FOLDER = os.path.abspath(conf.get('core', 'dags_folder') + "/../output") + "/"
 CONFIG_FOLDER = os.path.abspath(conf.get('core', 'dags_folder') + "/../config") + "/"
 
-with open( CONFIG_FOLDER + "/schedules.json", 'r') as f:
-    schedules = json.load(f)
+with open( CONFIG_FOLDER + "/notebooks.json", 'r') as f:
+    notebooks = json.load(f)
 
 def create_dag(dag_id, args):
 
@@ -39,7 +39,7 @@ def create_dag(dag_id, args):
         dag_id=dag_id,
         default_args=args,
         max_active_runs=1,
-        schedule_interval=schedules['interval'].get(basename, None),
+        schedule_interval=notebooks[basename]['interval'],
         dagrun_timeout=timedelta(minutes=60)
     )
 

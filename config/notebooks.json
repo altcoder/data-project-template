@@ -1,0 +1,7 @@
+{
+  "hello_world": {
+    "interval": "@daily",
+    "type": "github",
+    "url": "https://api.github.com/repos/altcoder/data-project-template/commits?since={}&path=datasets"
+  }
+}
