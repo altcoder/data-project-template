@@ -10,19 +10,18 @@ from airflow.operators.dagrun_operator import TriggerDagRunOperator
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.configuration import conf
 
-DAGS_FOLDER = conf.get('core', 'dags_folder')
+DAGS_DIR = conf.get('core', 'dags_folder')
 
-with open( DAGS_FOLDER + "/../config/notebooks.json", 'r') as f:
+with open( DAGS_DIR + "/../config/notebooks.json", 'r') as f:
     notebooks = json.load(f)
-
 
 args = {
     'owner': 'altcoder',
-    'start_date': '2020-03-28',
+    'start_date': datetime(2020, 3, 28),
     'catchup_by_default': False
 }
 
-def get_last_commit(ds, **kwargs):
+def get_last_commit(**kwargs):
     since = kwargs.get('execution_date', None).strftime('%Y-%m-%dT%H:%M:%SZ')
     name =kwargs.get('name')
     url_template =kwargs.get('url')

@@ -1,6 +1,7 @@
 # Secret
-credentials/
+config/airflow-prod.cfg
 config/airflow-vars.json
+scripts/docker-entrypoint.sh
 
 # Jupyter
 .ipynb_checkpoints/
@@ -15,4 +16,7 @@ htmlcov
 .DS_Store
 *.log
 tmp/
-
+# Local
+.covid19-budget-tracker
+setup.sh
+env.sh

@@ -3,7 +3,7 @@
 # Run this one time only
 
 # Update markdown docs with project name
-find . -type f -name "*.md" -print0 | xargs -0 sed -i '' 's/\[GH_REPO\]/new-project-name/g'
+find . -type f -name "*.md" -print0 | xargs -0 sed -i '' 's/\[GH_REPO\]/covid19\-budget\-tracker/g'
 
 # Setup Conda environment
 rm -rf ./.${PWD##*/}
@@ -15,7 +15,6 @@ conda deactivate
 # Create env.sh to initialize environment
 echo "conda deactivate" > env.sh
 echo "conda activate ./.${PWD##*/}" >> env.sh
-echo "alias af=scripts/airflow.sh"
 
 # Add to .gitignore
 echo "# Local" >> .gitignore
